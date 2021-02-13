@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"github.com/nvdhunter/golang-microservices/app"
 )
 
 func main() {
-	fmt.Println("Go Microservice")
+	app.StartApp()
 }
