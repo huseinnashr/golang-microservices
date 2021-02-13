@@ -3,50 +3,50 @@ package errors
 import "net/http"
 
 type ApiError interface {
-	Status() int
-	Message() string
-	Error() string
+	GetStatus() int
+	GetMessage() string
+	GetError() string
 }
 
 type apiError struct {
-	status  int    `json:"status"`
-	message string `json:"message"`
-	error   string `json:"error,omitempty"`
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+	Error   string `json:"error,omitempty"`
 }
 
-func (e *apiError) Status() int {
-	return e.status
+func (e *apiError) GetStatus() int {
+	return e.Status
 }
 
-func (e *apiError) Message() string {
-	return e.message
+func (e *apiError) GetMessage() string {
+	return e.Message
 }
 
-func (e *apiError) Error() string {
-	return e.error
+func (e *apiError) GetError() string {
+	return e.Error
 }
 
 func NewApiError(statusCode int, message string) ApiError {
-	return &apiError{status: statusCode, message: message}
+	return &apiError{Status: statusCode, Message: message}
 }
 
 func NewNotFoundApiError(message string) ApiError {
 	return &apiError{
-		status:  http.StatusNotFound,
-		message: message,
+		Status:  http.StatusNotFound,
+		Message: message,
 	}
 }
 
 func NewInternalServerError(message string) ApiError {
 	return &apiError{
-		status:  http.StatusInternalServerError,
-		message: message,
+		Status:  http.StatusInternalServerError,
+		Message: message,
 	}
 }
 
 func NewBadRequestError(message string) ApiError {
 	return &apiError{
-		status:  http.StatusBadRequest,
-		message: message,
+		Status:  http.StatusBadRequest,
+		Message: message,
 	}
 }

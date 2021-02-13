@@ -13,13 +13,13 @@ func CreateRepo(c *gin.Context) {
 	var request repository.CreateRepoRequest
 	if err := c.ShouldBindJSON(&request); err != nil {
 		apiErr := errors.NewBadRequestError("invalid json body")
-		c.JSON(apiErr.Status(), apiErr)
+		c.JSON(apiErr.GetStatus(), apiErr)
 		return
 	}
 
 	result, err := services.RepositoryService.CreateRepo(request)
 	if err != nil {
-		c.JSON(err.Status(), err)
+		c.JSON(err.GetStatus(), err)
 		return
 	}
 
