@@ -1,8 +1,8 @@
 package app
 
 import (
+	"github.com/nvdhunter/golang-microservices/controllers/polo"
 	"github.com/nvdhunter/golang-microservices/controllers/repository"
-	"github.com/nvdhunter/golang-microservices/controllers/repository/polo"
 )
 
 func mapUrls() {
