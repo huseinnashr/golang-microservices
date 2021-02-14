@@ -3,11 +3,11 @@ package config
 import "os"
 
 const (
-	apiGithubAccessToken = "SECRET_GITHUB_ACESS_TOKEN"
+	secretGithubAccessToken = "SECRET_GITHUB_ACCESS_TOKEN"
 )
 
 var (
-	githubAccessToken = os.Getenv(apiGithubAccessToken)
+	githubAccessToken = os.Getenv(secretGithubAccessToken)
 )
 
 func GetGithubAccessToken() string {
