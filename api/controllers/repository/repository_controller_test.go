@@ -9,10 +9,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/gin-gonic/gin"
 	"github.com/nvdhunter/golang-microservices/clients/restclient"
 	"github.com/nvdhunter/golang-microservices/domain/repository"
 	"github.com/nvdhunter/golang-microservices/utils/errors"
+	"github.com/nvdhunter/golang-microservices/utils/tests"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -22,10 +22,9 @@ func TestMain(m *testing.M) {
 }
 
 func TestCreateRepoInvalidJsonRequest(t *testing.T) {
-	response := httptest.NewRecorder()
-	c, _ := gin.CreateTestContext(response)
 	request, _ := http.NewRequest(http.MethodPost, "repositories", strings.NewReader(``))
-	c.Request = request
+	response := httptest.NewRecorder()
+	c := tests.GetMockedContext(request, response)
 
 	CreateRepo(c)
 
@@ -39,10 +38,9 @@ func TestCreateRepoInvalidJsonRequest(t *testing.T) {
 }
 
 func TestCreateRepoErrorFromGithub(t *testing.T) {
-	response := httptest.NewRecorder()
-	c, _ := gin.CreateTestContext(response)
 	request, _ := http.NewRequest(http.MethodPost, "repositories", strings.NewReader(`{"name": "testing"}`))
-	c.Request = request
+	response := httptest.NewRecorder()
+	c := tests.GetMockedContext(request, response)
 
 	restclient.FlushMockups()
 	restclient.AddMockup(restclient.Mock{
@@ -66,10 +64,9 @@ func TestCreateRepoErrorFromGithub(t *testing.T) {
 }
 
 func TestCreateRepoNoError(t *testing.T) {
-	response := httptest.NewRecorder()
-	c, _ := gin.CreateTestContext(response)
 	request, _ := http.NewRequest(http.MethodPost, "repositories", strings.NewReader(`{"name": "testing"}`))
-	c.Request = request
+	response := httptest.NewRecorder()
+	c := tests.GetMockedContext(request, response)
 
 	restclient.FlushMockups()
 	restclient.AddMockup(restclient.Mock{
